@@ -10,28 +10,16 @@ jobs:
 
 workflows:
   workflow1:
+    matches:
+      pattern: "^v.*$"
+      value: << pipeline.git.tag >>
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
+      - build
       - hold:
           type: approval
           requires:
             - build
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
       - build:
           name: build-after-approval
           requires:
             - hold
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
