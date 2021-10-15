@@ -25,3 +25,8 @@ workflows:
           name: build-after-approval
           requires:
             - hold
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
