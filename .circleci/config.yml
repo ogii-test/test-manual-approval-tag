@@ -11,7 +11,12 @@ jobs:
 workflows:
   workflow1:
     jobs:
-      - build
+      - build:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - hold:
           type: approval
           requires:
