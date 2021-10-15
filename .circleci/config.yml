@@ -15,7 +15,12 @@ workflows:
         pattern: "^v.*$"
         value: << pipeline.git.tag >>
     jobs:
-      - build
+      - build:
+         filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore: /.*/
       - hold:
           type: approval
           requires:
