@@ -12,9 +12,10 @@ workflows:
   workflow1:
     jobs:
       - build
-      - hold:
+      - request-testing:
           type: approval
-          requires: build
+          requires:
+            - build
       - build:
           name: build-after-approval
           requires:
