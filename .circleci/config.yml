@@ -18,14 +18,11 @@ workflows:
   test-workflow:
     jobs:
       - build:
-         filters: *tag-filter
       - hold:
           type: approval
           requires:
             - build
-          filters: *tag-filter
       - build:
           name: build-after-approval
           requires:
             - hold
-          filters: *tag-filter
