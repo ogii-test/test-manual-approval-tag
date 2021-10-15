@@ -1,5 +1,11 @@
 version: 2.1
 
+tag-filter: &tag-filter
+  tags:
+    only: /^v.*/
+  branches:
+    ignore: /.*/
+
 jobs:
   build:
     docker:
@@ -9,23 +15,17 @@ jobs:
       - run: echo "test"
 
 workflows:
-  workflow1:
-    when:
-      matches:
-        pattern: "^v.*$"
-        value: << pipeline.git.tag >>
+  test-workflow:
     jobs:
       - build:
-         filters:
-          tags:
-            only: /^v.*/
-          branches:
-            ignore: /.*/
+         filters: *tag-filter
       - hold:
           type: approval
           requires:
             - build
+          filters: *tag-filter
       - build:
           name: build-after-approval
           requires:
             - hold
+          filters: *tag-filter
