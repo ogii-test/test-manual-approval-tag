@@ -21,6 +21,11 @@ workflows:
           type: approval
           requires:
             - build
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - build:
           name: build-after-approval
           requires:
