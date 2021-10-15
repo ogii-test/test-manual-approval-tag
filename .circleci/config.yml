@@ -12,3 +12,10 @@ workflows:
   workflow1:
     jobs:
       - build
+      - hold:
+          type: approval
+          requires: build
+      - build:
+          name: build-after-approval
+          requires:
+            - hold
