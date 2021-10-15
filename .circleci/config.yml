@@ -10,9 +10,10 @@ jobs:
 
 workflows:
   workflow1:
-    matches:
-      pattern: "^v.*$"
-      value: << pipeline.git.tag >>
+    when:
+      matches:
+        pattern: "^v.*$"
+        value: << pipeline.git.tag >>
     jobs:
       - build
       - hold:
