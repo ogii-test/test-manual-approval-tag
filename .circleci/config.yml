@@ -1,11 +1,5 @@
 version: 2.1
 
-tag-filter: &tag-filter
-  tags:
-    only: /^v.*/
-  branches:
-    ignore: /.*/
-
 jobs:
   build:
     docker:
@@ -17,7 +11,7 @@ jobs:
 workflows:
   test-workflow:
     jobs:
-      - build:
+      - build
       - hold:
           type: approval
           requires:
